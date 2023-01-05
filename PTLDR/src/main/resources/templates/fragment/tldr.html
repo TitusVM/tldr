@@ -1,0 +1,61 @@
+<div th:fragment="tldr-list">
+	<h1>Liste des TLDR</h1>
+
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">Nom</th>
+				<th scope="col">Contenu</th>
+				<th scope="col" th:if="${isAdmin}" />
+				<th scope="col" th:if="${isAdmin}" />
+			</tr>
+		</thead>
+		<tbody>
+			<!--  itertaions sur les bieres -->
+			<tr th:each="tldr: ${tldrs}">
+				<!-- beers est le nom de la variable fourni dans le modèle au niveau du conrolleur -->
+				<td th:text="${tldr.name}" />
+				<td th:text="${tldr.content}" />
+				<td th:if="${isAdmin}">
+					<form action="#" th:action="@{/admin/delete-tldr}" th:object="${tldr}" method="post">
+						<input type="hidden" th:value="${tldr.id}" name="id" />
+						<button type="submit" class="btn btn-danger">Supprimer</button>
+					</form>
+				</td>
+				<td th:if="${isAdmin}">
+					<form action="#" th:action="@{/admin/edit-tldr}" th:object="${tldr}" method="post">
+						<input type="hidden" th:value="${tldr.id}" name="id" />
+						<button type="submit" class="btn btn-warning">Modifier</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div th:fragment="new-tldr">
+	<h1 th:if="${isNew}">Insertion d'un TLDR</h1>
+	<h1 th:if="${isEdit}">Modification d'une TLDR</h1>
+
+	<form action="#" th:action="@{/save-tldr}" th:object="${tldr}" method="post">
+
+		<div th:if="${isEdit}" class="form-group">
+			<label for="id" th:text="Id"></label>
+			<input type="text" class="form-control" th:required="required" readonly th:field="*{id}" />
+		</div>
+
+		<div class="form-group">
+			<label for="name" th:text="Nom"></label>
+			<input type="text" class="form-control" th:required="required" th:field="*{name}" />
+		</div>
+
+		<div class="form-group">
+			<label for="price" th:text="Contenu"></label>
+			<input type="text" class="form-control" th:required="required" th:field="*{content}" />
+		</div>
+
+		<input type="hidden" name="type" th:if="${isNew}" th:value="new" />
+		<input type="hidden" name="type" th:if="${isEdit}" th:value="edit" />
+		<button type="submit" class="btn btn-primary">Enregistrer</button>
+	</form>
+</div>
