@@ -64,6 +64,16 @@ public class TLDR
 		this.content = content;
 		}
 
+	public Long getVote()
+		{
+		return this.vote;
+		}
+
+	public void setVote(Long vote)
+		{
+		this.vote = vote;
+		}
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
@@ -78,5 +88,6 @@ public class TLDR
 
 	private String name;
 	private String content;
+	private Long vote;
 
 	}

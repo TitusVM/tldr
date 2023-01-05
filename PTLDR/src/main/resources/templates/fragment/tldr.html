@@ -11,9 +11,18 @@
 			</tr>
 		</thead>
 		<tbody>
-			<!--  itertaions sur les bieres -->
 			<tr th:each="tldr: ${tldrs}">
-				<!-- beers est le nom de la variable fourni dans le modèle au niveau du conrolleur -->
+				<div style="float: left;">
+					<form action="#" th:action="@{/admin/vote-plus}" th:object="${tldr}" method="post">
+						<input type="hidden" th:value="${tldr.id}" name="id" />
+						<button type="submit" class="btn">+</button>
+					</form>
+					<form action="#" th:action="@{/admin/vote-minus}" th:object="${tldr}" method="post">
+						<input type="hidden" th:value="${tldr.id}" name="id" />
+						<button type="submit" class="btn">-</button>
+					</form>
+				</div>
+				<td th:text="${tldr.vote}" />
 				<td th:text="${tldr.name}" />
 				<td th:text="${tldr.content}" />
 				<td th:if="${isAdmin}">
@@ -28,6 +37,7 @@
 						<button type="submit" class="btn btn-warning">Modifier</button>
 					</form>
 				</td>
+				
 			</tr>
 		</tbody>
 	</table>
