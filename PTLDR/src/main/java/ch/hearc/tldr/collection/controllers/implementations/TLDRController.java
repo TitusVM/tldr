@@ -80,7 +80,7 @@ public class TLDRController
 		model.addAttribute("isEdit", Boolean.TRUE);
 		model.addAttribute("isNew", Boolean.FALSE);
 
-		return "admin/accueil";
+		return "/accueil";
 		}
 
 	/*------------------------------------------------------------------*\

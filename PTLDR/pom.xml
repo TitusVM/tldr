@@ -8,15 +8,15 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ch.hearc.jee2022</groupId>
-	<artifactId>hello-spring</artifactId>
+	<artifactId>tldr</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>PJEE2022</name>
-	<description>Hello Spring project for Spring Boot</description>
+	<description>TLDR</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -31,12 +31,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!--  Bootstrap -->
 		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>bootstrap</artifactId>
-		    <version>4.0.0-2</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>4.0.0-2</version>
 		</dependency>
 
 		<dependency>
