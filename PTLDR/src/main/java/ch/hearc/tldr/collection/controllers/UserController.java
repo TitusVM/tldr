@@ -76,7 +76,7 @@ public class UserController
 	public String newAccount(@RequestParam String username, @RequestParam String password)
 		{
 		//if()
-
+		return null;
 		}
 
 	/*------------------------------*\
