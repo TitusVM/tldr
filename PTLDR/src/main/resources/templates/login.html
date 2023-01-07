@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title th:if="${showLoginForm}"> TLDR - Login</title>
+	<title th:if="${showNewAccountForm}"> TLDR - New Account</title>
+	<!-- bootstrap -->
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+
+</head>
+
+
+<body>
+
+	<div th:if="${showLoginForm}">
+		<div th:replace="fragment/login-form :: login-form"></div>
+	</div>
+
+	<div th:if="${showNewAccountForm}">
+		<div th:replace="fragment/newAccount-form :: newAccount-form"></div>
+	</div>
+
+
+	<!-- webjat footer -->
+	<div th:replace="fragment/common :: webjar-footer"></div>
+
+</body>
+
+</body>
+
+</html>

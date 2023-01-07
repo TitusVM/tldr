@@ -20,8 +20,9 @@
 
 	<!-- choix fragment -->
 	<div th:if="${showNew}">
-		<div th:replace="fragment/tldr :: new-tldr"></div>
+		<div th:replace="fragment/tldr :: new-tldr">Login</div>
 	</div>
+
 
 	<!-- webjat footer -->
 	<div th:replace="fragment/common :: webjar-footer"></div>

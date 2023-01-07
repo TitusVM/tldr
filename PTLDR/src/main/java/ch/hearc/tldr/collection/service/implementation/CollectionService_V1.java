@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ch.hearc.tldr.collection.models.implementation.TLDR;
+import ch.hearc.tldr.collection.models.TLDR;
 import ch.hearc.tldr.collection.repository.TLDRRepository;
 import ch.hearc.tldr.collection.service.CollectionService;
 

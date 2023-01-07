@@ -1,5 +1,5 @@
 
-package ch.hearc.tldr.collection.models.implementation;
+package ch.hearc.tldr.collection.models;
 
 
 
