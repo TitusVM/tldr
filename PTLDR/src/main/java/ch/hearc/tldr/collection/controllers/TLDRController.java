@@ -1,5 +1,5 @@
 
-package ch.hearc.tldr.collection.controllers.implementations;
+package ch.hearc.tldr.collection.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ch.hearc.tldr.collection.models.implementation.TLDR;
+import ch.hearc.tldr.collection.models.TLDR;
 import ch.hearc.tldr.collection.service.CollectionService;
 
 @Controller
@@ -80,7 +80,7 @@ public class TLDRController
 		model.addAttribute("isEdit", Boolean.TRUE);
 		model.addAttribute("isNew", Boolean.FALSE);
 
-		return "/accueil";
+		return "/acceuil";
 		}
 
 	/*------------------------------------------------------------------*\

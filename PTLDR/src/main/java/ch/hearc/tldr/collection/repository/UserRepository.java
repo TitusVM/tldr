@@ -1,17 +1,19 @@
 
 package ch.hearc.tldr.collection.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 
-import ch.hearc.tldr.collection.models.TLDR;
+import ch.hearc.tldr.collection.models.User;
 
-public interface TLDRRepository extends CrudRepository<TLDR, Long>
+public interface UserRepository extends CrudRepository<User, Long>
 	{
-
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 
-	public TLDR findByName(String name);
+	public Optional<User> findByUsername(String username);
 
+	public String findPasswordById(Long id);
 	}

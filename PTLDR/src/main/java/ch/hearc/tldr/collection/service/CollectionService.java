@@ -3,7 +3,7 @@ package ch.hearc.tldr.collection.service;
 
 import java.util.List;
 
-import ch.hearc.tldr.collection.models.implementation.TLDR;
+import ch.hearc.tldr.collection.models.TLDR;
 
 public interface CollectionService
 	{
