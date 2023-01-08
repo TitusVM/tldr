@@ -68,7 +68,7 @@ public class TLDRController
 		return "redirect:/"; // redirect nécessaire
 		}
 
-	@PostMapping(value = "/edit-beer")
+	@PostMapping(value = "/edit-tldr")
 	public String showNEditBeerForm(Model model, @RequestParam Long id)
 		{
 		TLDR tldrToEdit = collectionService.getTLDRById(id);
