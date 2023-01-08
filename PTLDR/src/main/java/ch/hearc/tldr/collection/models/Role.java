@@ -1,18 +1,26 @@
 
 package ch.hearc.tldr.collection.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Vote
+@Table(name = "roles")
+public class Role
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
+
+	public Role(String name)
+		{
+		this.name = name;
+		}
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
@@ -22,6 +30,30 @@ public class Vote
 	|*				Get				*|
 	\*------------------------------*/
 
+	public Long getId()
+		{
+		return this.id;
+		}
+
+	public String getName()
+		{
+		return this.name;
+		}
+
+	/*------------------------------*\
+	|*				Set				*|
+	\*------------------------------*/
+
+	public void setId(Long id)
+		{
+		this.id = id;
+		}
+
+	public void setName(String name)
+		{
+		this.name = name;
+		}
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
@@ -30,9 +62,10 @@ public class Vote
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
-	@Id //
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private Long userId;
+	@Column(nullable = false, length = 45)
+	private String name;
 	}
