@@ -4,6 +4,8 @@
 	<table class="table">
 		<thead class="thead-dark">
 			<tr>
+				<th scope="col" />
+				<th scope="col">Vote</th>
 				<th scope="col">Nom</th>
 				<th scope="col">Contenu</th>
 				<th scope="col" th:if="${isAdmin}" />
@@ -12,7 +14,7 @@
 		</thead>
 		<tbody>
 			<tr th:each="tldr: ${tldrs}">
-				<div style="float: left;">
+				<td>
 					<form action="#" th:action="@{/admin/vote-plus}" th:object="${tldr}" method="post">
 						<input type="hidden" th:value="${tldr.id}" name="id" />
 						<button type="submit" class="btn">+</button>
@@ -21,8 +23,8 @@
 						<input type="hidden" th:value="${tldr.id}" name="id" />
 						<button type="submit" class="btn">-</button>
 					</form>
-				</div>
-				<td th:text="${tldr.vote}" />
+				</td>
+				<td th:text="0" />
 				<td th:text="${tldr.name}" />
 				<td th:text="${tldr.content}" />
 				<td th:if="${isAdmin}">
