@@ -33,7 +33,10 @@ public class CustomUserDetailsService implements UserDetailsService
 
 		if (user != null)
 			{
-			return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+			return new org.springframework.security.core.userdetails.User( //
+					user.getEmail(), //
+					user.getPassword(), //
+					mapRolesToAuthorities(user.getRoles()));
 			}
 		else
 			{
@@ -43,7 +46,10 @@ public class CustomUserDetailsService implements UserDetailsService
 
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles)
 		{
-		Collection<? extends GrantedAuthority> mapRoles = roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+		Collection<? extends GrantedAuthority> mapRoles = roles.stream()//
+				.map(role -> new SimpleGrantedAuthority(role.getName()))//
+				.collect(Collectors.toList());
+
 		return mapRoles;
 		}
 	}
