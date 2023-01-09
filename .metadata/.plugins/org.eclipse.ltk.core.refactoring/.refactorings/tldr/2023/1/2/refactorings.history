@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;ch.hearc.jee.tldr.dro&apos; to &apos;ch.hearc.jee.tldr.dto&apos;&#x0D;&#x0A;- Original project: &apos;tldr&apos;&#x0D;&#x0A;- Original element: &apos;tldr/src/main/java/ch.hearc.jee.tldr.dro&apos;&#x0D;&#x0A;- Renamed element: &apos;tldr/src/main/java/ch.hearc.jee.tldr.dto&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;ch.hearc.jee.tldr.dro&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;ch.hearc.jee.tldr.dro" name="ch.hearc.jee.tldr.dto" qualified="false" references="true" stamp="1673265560690" textual="false" version="1.0"/>
+</session>
