@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head th:replace="~{fragments/head :: head}"></head>
-
-<body>
-	<nav th:replace="~{fragments/navbar :: navbar}"></nav>
-	<br /><br /><br />
-	<div class="container">
+<div th:fragment="register-form" class="container">
 		<div class="row col-md-8 offset-md-2">
 			<div class="card">
 				<div class="card-header">
@@ -56,6 +48,3 @@
 			</div>
 		</div>
 	</div>
-</body>
-
-</html>

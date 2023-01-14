@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import ch.hearc.jee.tldr.dto.UserDto;
 import ch.hearc.jee.tldr.entity.User;
-import ch.hearc.jee.tldr.service.UserService;
+import ch.hearc.jee.tldr.service.user.UserService;
 
 import jakarta.validation.Valid;
 
@@ -27,18 +27,13 @@ public class AuthController
 		this.userService = userService;
 		}
 
-	// handler method to handle home page request
-	@GetMapping("/index")
-	public String home()
-		{
-		return "index";
-		}
-
 	// handler method to handle login request
 	@GetMapping("/login")
-	public String login()
+	public String login(Model model)
 		{
-		return "login";
+		model.addAttribute("user", new UserDto());
+		model.addAttribute("loginForm", Boolean.TRUE);
+		return "auth";
 		}
 
 	// handler method to handle user registration form request
@@ -48,7 +43,8 @@ public class AuthController
 		// create model object to store form data
 		UserDto user = new UserDto();
 		model.addAttribute("user", user);
-		return "register";
+		model.addAttribute("registerForm", Boolean.TRUE);
+		return "auth";
 		}
 
 	// handler method to handle user registration form submit request
@@ -65,11 +61,11 @@ public class AuthController
 		if (result.hasErrors())
 			{
 			model.addAttribute("user", userDto);
-			return "/register";
+			return "redirect:/register";
 			}
 
 		userService.saveUser(userDto);
-		return "redirect:/register?success";
+		return "redirect:/login";
 		}
 
 	// handler method to handle list of users
@@ -78,6 +74,7 @@ public class AuthController
 		{
 		List<UserDto> users = userService.findAllUsers();
 		model.addAttribute("users", users);
-		return "users";
+		model.addAttribute("userList", Boolean.TRUE);
+		return "list";
 		}
 	}

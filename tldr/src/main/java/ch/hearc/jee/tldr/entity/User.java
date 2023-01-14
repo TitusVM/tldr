@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +37,10 @@ public class User
 	private Long id;
 
 	@Column(nullable = false)
-	private String name;
+	private String firstName;
+
+	@Column(nullable = false)
+	private String lastName;
 
 	@Column(nullable = false, unique = true)
 	private String email;
@@ -55,5 +59,9 @@ public class User
 							name = "ROLE_ID", //
 							referencedColumnName = "ID") })
 	private List<Role> roles = new ArrayList<>();
+
+	@OneToMany
+	@JoinColumn(name = "role_id")
+	private List<TLDR> tldrs;
 
 	}

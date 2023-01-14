@@ -5,7 +5,9 @@
 
 <body>
 	<nav th:replace="~{fragments/common/navbar :: navbar}"></nav>
-	<br /><br />
+	<div th:if="${createForm}">
+		<div th:replace="~{fragments/model/tldr/create-form :: create-form}"></div>
+	</div>
 </body>
 
 </html>

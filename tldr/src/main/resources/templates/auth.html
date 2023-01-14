@@ -6,6 +6,14 @@
 <body>
 	<nav th:replace="~{fragments/common/navbar :: navbar}"></nav>
 	<br /><br />
+	<div th:if="${loginForm}">
+		<div th:replace="~{fragments/auth/login :: login-form}"></div>
+	</div>
+	
+	<div th:if="${registerForm}">
+		<div th:replace="~{fragments/auth/register :: register-form}"></div>
+	</div>
+	
 </body>
 
 </html>

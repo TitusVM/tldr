@@ -1,5 +1,5 @@
 
-package ch.hearc.jee.tldr.service.impl;
+package ch.hearc.jee.tldr.service.user.impl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +13,7 @@ import ch.hearc.jee.tldr.entity.Role;
 import ch.hearc.jee.tldr.entity.User;
 import ch.hearc.jee.tldr.repository.RoleRepository;
 import ch.hearc.jee.tldr.repository.UserRepository;
-import ch.hearc.jee.tldr.service.UserService;
+import ch.hearc.jee.tldr.service.user.UserService;
 
 @Service
 public class UserServiceImpl implements UserService
@@ -34,13 +34,14 @@ public class UserServiceImpl implements UserService
 	public void saveUser(UserDto userDto)
 		{
 		User user = new User();
-		user.setName(userDto.getFirstName() + " " + userDto.getLastName());
+		user.setFirstName(userDto.getFirstName());
+		user.setLastName(userDto.getLastName());
 		user.setEmail(userDto.getEmail());
 
 		// encrypt the password using spring security
 		user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-		Role role = roleRepository.findByName("ROLE_ADMIN");
+		Role role = roleRepository.findByName("ROLE_USER");
 		if (role == null)
 			{
 			role = checkRoleExist();
@@ -56,6 +57,12 @@ public class UserServiceImpl implements UserService
 		}
 
 	@Override
+	public User findById(Long userId)
+		{
+		return userRepository.findById(userId).get();
+		}
+
+	@Override
 	public List<UserDto> findAllUsers()
 		{
 		List<User> users = userRepository.findAll();
@@ -65,9 +72,8 @@ public class UserServiceImpl implements UserService
 	private UserDto mapToUserDto(User user)
 		{
 		UserDto userDto = new UserDto();
-		String[] str = user.getName().split(" ");
-		userDto.setFirstName(str[0]);
-		userDto.setLastName(str[1]);
+		userDto.setFirstName(user.getFirstName());
+		userDto.setLastName(user.getLastName());
 		userDto.setEmail(user.getEmail());
 		return userDto;
 		}
@@ -75,7 +81,7 @@ public class UserServiceImpl implements UserService
 	private Role checkRoleExist()
 		{
 		Role role = new Role();
-		role.setName("ROLE_ADMIN");
+		role.setName("ROLE_USER");
 		return roleRepository.save(role);
 		}
 	}

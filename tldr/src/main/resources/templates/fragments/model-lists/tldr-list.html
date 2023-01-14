@@ -1,0 +1,19 @@
+<div th:fragment="tldr-list" class="container">
+		<div class="row col-md-10">
+			<h2>List of TLDRs</h2>
+		</div>
+		<table class="table table-bordered table-hover">
+			<thead class="table-dark">
+				<tr>
+					<th>Name</th>
+					<th>Content</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="tldr : ${tldrs}">
+					<td th:text="${tldr.name}"></td>
+					<td th:text="${tldr.content}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/common/head :: head}"></head>
+
+<body>
+	<nav th:replace="~{fragments/common/navbar :: navbar}"></nav>
+	<div th:if="${userList}" >
+		<div th:replace="~{fragments/model-lists/user-list :: user-list}"></div>
+	</div>
+	<div th:if="${tldrList}">
+		<div th:replace="~{fragments/model-lists/tldr-list :: tldr-list}"></div>
+	</div>
+</body>
+
+</html>
