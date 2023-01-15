@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ch.hearc.jee.tldr.dto.TLDRDto;
 import ch.hearc.jee.tldr.entity.TLDR;
 import ch.hearc.jee.tldr.repository.TLDRRepository;
+import ch.hearc.jee.tldr.repository.UserRepository;
 import ch.hearc.jee.tldr.service.tldr.TLDRService;
 
 @Service
@@ -18,12 +19,16 @@ public class TLDRServiceImpl implements TLDRService
 	@Autowired
 	private TLDRRepository tldrRepository;
 
+	@Autowired
+	private UserRepository userRepository;
+
 	@Override
 	public void saveTLDR(TLDRDto tldrDto)
 		{
 		TLDR tldr = new TLDR();
 		tldr.setName(tldrDto.getName());
-		tldr.setContent(tldr.getContent());
+		tldr.setContent(tldrDto.getContent());
+		tldr.setUser(userRepository.findById(tldrDto.getUserId()).get());
 		this.tldrRepository.save(tldr);
 		}
 

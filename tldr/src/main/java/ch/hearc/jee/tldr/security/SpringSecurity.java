@@ -32,6 +32,7 @@ public class SpringSecurity
 		http.csrf().disable().authorizeHttpRequests((authorize) -> //
 		authorize//
 				.requestMatchers("/register/**").permitAll() //
+				.requestMatchers("/create/**").permitAll()//
 				.requestMatchers("/").permitAll() //
 				.requestMatchers("/index").permitAll() //
 				.requestMatchers("/tldrs").permitAll() //

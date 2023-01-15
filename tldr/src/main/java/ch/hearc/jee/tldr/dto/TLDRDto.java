@@ -19,4 +19,5 @@ public class TLDRDto
 	private String name;
 	@NotEmpty(message = "Content should not be empty")
 	private String content;
+	private Long userId;
 	}

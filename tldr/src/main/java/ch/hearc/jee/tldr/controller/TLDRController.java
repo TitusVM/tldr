@@ -8,15 +8,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import ch.hearc.jee.tldr.dto.TLDRDto;
-import ch.hearc.jee.tldr.dto.UserDto;
 import ch.hearc.jee.tldr.entity.TLDR;
 import ch.hearc.jee.tldr.entity.User;
 import ch.hearc.jee.tldr.service.tldr.TLDRService;
@@ -37,16 +38,9 @@ public class TLDRController
 	@GetMapping("/tldrs")
 	public String users(Model model)
 		{
-		currentUser();
 		List<TLDR> tldrs = tldrService.findAllTLDRs();
 		model.addAttribute("tldrs", tldrs);
 		return "list";
-		}
-
-	@GetMapping("/all")
-	public List<TLDR> getAll()
-		{
-		return tldrService.findAll();
 		}
 
 	@GetMapping("/{id}")
@@ -59,31 +53,30 @@ public class TLDRController
 	public String create(Model model)
 		{
 		User user = currentUser();
-
 		if (user != null)
 			{
 			model.addAttribute("createForm", Boolean.TRUE);
+			model.addAttribute("tldr", new TLDRDto());
 			return "tldr";
 			}
 		else
 			{
-
 			return "redirect:/login";
 			}
 		}
 
 	@PostMapping("/create/save")
-	public String createSave(@Valid @RequestBody TLDRDto tldrDto)
+	public String createSave(@Valid @ModelAttribute("tldr") TLDRDto tldrDto, BindingResult result, Model model)
 		{
 		User user = currentUser();
 
 		if (user != null)
 			{
-			TLDR tldr = new TLDR();
+			TLDRDto tldr = new TLDRDto();
 			tldr.setName(tldrDto.getName());
 			tldr.setContent(tldrDto.getContent());
-			tldr.setUser(user);
-			tldrService.save(tldr);
+			tldr.setUserId(user.getId());
+			tldrService.saveTLDR(tldr);
 			return "redirect:/my-tldrs";
 			}
 		else
@@ -132,16 +125,10 @@ public class TLDRController
 		{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = null;
-		System.out.println(".-.-.-.-.-.-.-.-.-.-.-.-..-.-.-.-.-.-.-.-.-.-.-.-.-.-.-");
-		System.out.println(authentication.getPrincipal());
 		if (authentication != null && authentication.isAuthenticated())
 			{
-			Object principal = authentication.getPrincipal();
-			if (principal instanceof User)
-				{
-				UserDto userDto = (UserDto)principal;
-				user = this.userService.findById(userDto.getId());
-				}
+			org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User)authentication.getPrincipal();
+			user = userService.findUserByEmail(principal.getUsername());
 			}
 		return user;
 		}
