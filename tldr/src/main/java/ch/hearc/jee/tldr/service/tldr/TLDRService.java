@@ -3,17 +3,16 @@ package ch.hearc.jee.tldr.service.tldr;
 
 import java.util.List;
 
-import ch.hearc.jee.tldr.dto.TLDRDto;
 import ch.hearc.jee.tldr.entity.TLDR;
 
 public interface TLDRService
 	{
 
-	public void saveTLDR(TLDRDto tldrDto);
+	public void saveTLDR(TLDR tldr);
 
-	public void updateTLDR(TLDRDto tldrDto);
+	public void updateTLDR(TLDR tldr);
 
-	public void deleteTLDR(TLDRDto tldrDto);
+	public void deleteTLDR(TLDR tldr);
 
 	public void deleteTLDRById(Long id);
 

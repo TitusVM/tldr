@@ -48,20 +48,28 @@ public class User
 	@Column(nullable = false)
 	private String password;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(name = "users_roles", //
 			joinColumns = { //
 					@JoinColumn( //
-							name = "USER_ID", //
-							referencedColumnName = "ID") }, //
+							name = "user_id", //
+							referencedColumnName = "id") }, //
 			inverseJoinColumns = { //
 					@JoinColumn( //
-							name = "ROLE_ID", //
-							referencedColumnName = "ID") })
+							name = "role_id", //
+							referencedColumnName = "id") })
 	private List<Role> roles = new ArrayList<>();
 
 	@OneToMany
-	@JoinColumn(name = "role_id")
+	@JoinColumn(name = "tldr_id")
 	private List<TLDR> tldrs;
 
+	public void addRole(Role role)
+		{
+		if (this.roles == null)
+			{
+			this.roles = new ArrayList<>();
+			}
+		this.roles.add(role);
+		}
 	}

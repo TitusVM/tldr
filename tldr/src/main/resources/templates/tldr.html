@@ -8,6 +8,9 @@
 	<div th:if="${createForm}">
 		<div th:replace="~{fragments/model/tldr/create-form :: create-form}"></div>
 	</div>
+	<div th:if="${editForm}">
+		<div th:replace="~{fragments/model/tldr/edit-form :: edit-form}"></div>
+	</div>
 </body>
 
 </html>

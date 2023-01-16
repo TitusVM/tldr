@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import ch.hearc.jee.tldr.dto.UserDto;
 import ch.hearc.jee.tldr.entity.User;
 import ch.hearc.jee.tldr.service.user.UserService;
 
@@ -31,7 +30,7 @@ public class AuthController
 	@GetMapping("/login")
 	public String login(Model model)
 		{
-		model.addAttribute("user", new UserDto());
+		model.addAttribute("user", new User());
 		model.addAttribute("loginForm", Boolean.TRUE);
 		return "auth";
 		}
@@ -41,7 +40,7 @@ public class AuthController
 	public String showRegistrationForm(Model model)
 		{
 		// create model object to store form data
-		UserDto user = new UserDto();
+		User user = new User();
 		model.addAttribute("user", user);
 		model.addAttribute("registerForm", Boolean.TRUE);
 		return "auth";
@@ -49,9 +48,9 @@ public class AuthController
 
 	// handler method to handle user registration form submit request
 	@PostMapping("/register/save")
-	public String registration(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model)
+	public String registration(@Valid @ModelAttribute("user") User user, BindingResult result, Model model)
 		{
-		User existingUser = userService.findUserByEmail(userDto.getEmail());
+		User existingUser = userService.findUserByEmail(user.getEmail());
 
 		if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty())
 			{
@@ -60,11 +59,11 @@ public class AuthController
 
 		if (result.hasErrors())
 			{
-			model.addAttribute("user", userDto);
+			model.addAttribute("user", user);
 			return "redirect:/register";
 			}
 
-		userService.saveUser(userDto);
+		userService.save(user);
 		return "redirect:/login";
 		}
 
@@ -72,9 +71,10 @@ public class AuthController
 	@GetMapping("/users")
 	public String users(Model model)
 		{
-		List<UserDto> users = userService.findAllUsers();
+		List<User> users = userService.findAllUsers();
 		model.addAttribute("users", users);
 		model.addAttribute("userList", Boolean.TRUE);
 		return "list";
 		}
+
 	}

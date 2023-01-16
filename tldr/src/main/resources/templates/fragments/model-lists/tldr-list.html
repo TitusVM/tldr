@@ -1,19 +1,29 @@
 <div th:fragment="tldr-list" class="container">
-		<div class="row col-md-10">
-			<h2>List of TLDRs</h2>
-		</div>
-		<table class="table table-bordered table-hover">
-			<thead class="table-dark">
-				<tr>
-					<th>Name</th>
-					<th>Content</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="tldr : ${tldrs}">
-					<td th:text="${tldr.name}"></td>
-					<td th:text="${tldr.content}"></td>
-				</tr>
-			</tbody>
-		</table>
+	<div class="row col-md-10">
+		<h2>List of TLDRs</h2>
 	</div>
+	<table class="table table-bordered table-hover">
+		<thead class="table-dark">
+			<tr>
+				<th>Name</th>
+				<th>Content</th>
+				<th th:if="${editable}">Edit</th>
+				<th th:if="${editable}">Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="tldr : ${tldrs}">
+				<td th:text="${tldr.name}"></td>
+				<td th:text="${tldr.content}"></td>
+				<td th:if="${editable}">
+					<a class="btn btn-primary" th:href="@{'/edit/' + ${tldr.id}}">Edit</a>
+				</td>
+				<td th:if="${editable}">
+					<form th:action="@{'/delete/' + ${tldr.id}}" method="post">
+						<input type="submit" class="btn btn-danger" value="Delete" />
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

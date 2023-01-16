@@ -6,11 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ch.hearc.jee.tldr.dto.TLDRDto;
 import ch.hearc.jee.tldr.entity.TLDR;
 import ch.hearc.jee.tldr.repository.TLDRRepository;
-import ch.hearc.jee.tldr.repository.UserRepository;
 import ch.hearc.jee.tldr.service.tldr.TLDRService;
+import ch.hearc.jee.tldr.service.user.UserService;
 
 @Service
 public class TLDRServiceImpl implements TLDRService
@@ -20,36 +19,36 @@ public class TLDRServiceImpl implements TLDRService
 	private TLDRRepository tldrRepository;
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@Override
-	public void saveTLDR(TLDRDto tldrDto)
+	public void saveTLDR(TLDR tldr)
 		{
-		TLDR tldr = new TLDR();
-		tldr.setName(tldrDto.getName());
-		tldr.setContent(tldrDto.getContent());
-		tldr.setUser(userRepository.findById(tldrDto.getUserId()).get());
-		this.tldrRepository.save(tldr);
+		TLDR new_tldr = new TLDR();
+		new_tldr.setName(tldr.getName());
+		new_tldr.setContent(tldr.getContent());
+		new_tldr.setUser(userService.findUserByEmail(tldr.getUser().getEmail()));// TODO
+		this.tldrRepository.save(new_tldr);
 		}
 
 	@Override
-	public void updateTLDR(TLDRDto tldrDto)
+	public void updateTLDR(TLDR tldr)
 		{
-		TLDR tldr = this.tldrRepository.findById(tldrDto.getId()).get();
+		TLDR udpatedTldr = this.tldrRepository.findById(tldr.getId()).get();
 
-		if (tldr != null)
+		if (udpatedTldr != null)
 			{
-			tldr.setName(tldrDto.getName());
-			tldr.setContent(tldrDto.getContent());
+			udpatedTldr.setName(tldr.getName());
+			udpatedTldr.setContent(tldr.getContent());
 			}
 
-		this.tldrRepository.save(tldr);
+		this.tldrRepository.save(udpatedTldr);
 		}
 
 	@Override
-	public void deleteTLDR(TLDRDto tldrDto)
+	public void deleteTLDR(TLDR tldr)
 		{
-		this.tldrRepository.deleteById(tldrDto.getId());
+		this.tldrRepository.deleteById(tldr.getId());
 		}
 
 	@Override
@@ -94,6 +93,6 @@ public class TLDRServiceImpl implements TLDRService
 	@Override
 	public void save(TLDR tldr)
 		{
-		this.tldrRepository.save(tldr);
+		this.saveTLDR(tldr);
 		}
 	}

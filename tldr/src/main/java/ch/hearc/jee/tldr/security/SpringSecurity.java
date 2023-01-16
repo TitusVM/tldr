@@ -33,12 +33,15 @@ public class SpringSecurity
 		authorize//
 				.requestMatchers("/register/**").permitAll() //
 				.requestMatchers("/create/**").permitAll()//
+				.requestMatchers("/edit/**").authenticated()//
+				.requestMatchers("/update/**").authenticated()//
+				.requestMatchers("/delete/**").authenticated()//
 				.requestMatchers("/").permitAll() //
 				.requestMatchers("/index").permitAll() //
 				.requestMatchers("/tldrs").permitAll() //
-				.requestMatchers("/users").permitAll() //
+				.requestMatchers("/users").hasRole("ADMIN")//
 				.requestMatchers("/admin").hasRole("ADMIN")//
-				.requestMatchers("/my-tldrs").authenticated()//
+				.requestMatchers("/my-tldrs").permitAll()//
 		).formLogin( //
 				form -> form //
 						.loginPage("/login") //

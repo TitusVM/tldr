@@ -1,0 +1,14 @@
+<div th:fragment="edit-form">
+	<form action="#" th:action="@{'/update/' + ${tldr.id}}" th:object="${tldr}" method="post">
+
+		<div class="form-group">
+			<label for="name" th:text="Name"></label>
+			<input type="text" class="form-control" th:required="required" th:field="*{name}" />
+		</div>
+		<div class="form-group">
+			<label for="content" th:text="Content"></label>
+			<input type="text" class="form-control" th:required="required" th:field="*{content}" />
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>

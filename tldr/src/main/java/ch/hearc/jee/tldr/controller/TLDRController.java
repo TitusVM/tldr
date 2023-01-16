@@ -9,15 +9,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import ch.hearc.jee.tldr.dto.TLDRDto;
 import ch.hearc.jee.tldr.entity.TLDR;
 import ch.hearc.jee.tldr.entity.User;
 import ch.hearc.jee.tldr.service.tldr.TLDRService;
@@ -56,7 +52,7 @@ public class TLDRController
 		if (user != null)
 			{
 			model.addAttribute("createForm", Boolean.TRUE);
-			model.addAttribute("tldr", new TLDRDto());
+			model.addAttribute("tldr", new TLDR());
 			return "tldr";
 			}
 		else
@@ -66,17 +62,14 @@ public class TLDRController
 		}
 
 	@PostMapping("/create/save")
-	public String createSave(@Valid @ModelAttribute("tldr") TLDRDto tldrDto, BindingResult result, Model model)
+	public String createSave(@Valid @ModelAttribute("tldr") TLDR tldr, BindingResult result, Model model)
 		{
 		User user = currentUser();
 
 		if (user != null)
 			{
-			TLDRDto tldr = new TLDRDto();
-			tldr.setName(tldrDto.getName());
-			tldr.setContent(tldrDto.getContent());
-			tldr.setUserId(user.getId());
-			tldrService.saveTLDR(tldr);
+
+			tldrService.save(tldr);
 			return "redirect:/my-tldrs";
 			}
 		else
@@ -85,20 +78,30 @@ public class TLDRController
 			}
 		}
 
-	@PutMapping("/update/{id}")
-	public String update(@PathVariable Long id, @Valid @RequestBody TLDRDto tldrDto)
+	@GetMapping("/edit/{id}")
+	public String edit(@PathVariable Long id, Model model)
 		{
 		TLDR tldr = tldrService.findById(id);
-		tldr.setName(tldrDto.getName());
-		tldr.setContent(tldrDto.getContent());
-		tldrService.save(tldr);
+		model.addAttribute("tldr", tldr);
+		model.addAttribute("editForm", Boolean.TRUE);
+		return "tldr";
+		}
+
+	@PostMapping("/update/{id}")
+	public String update(@PathVariable Long id, @Valid @ModelAttribute("tldr") TLDR tldr)
+		{
+		TLDR updatedTldr = tldrService.findById(id);
+		updatedTldr.setName(tldr.getName());
+		updatedTldr.setContent(tldr.getContent());
+		tldrService.save(updatedTldr);
 		return "redirect:/my-tldrs";
 		}
 
-	@DeleteMapping("/delete/{id}")
-	public void delete(@PathVariable Long id)
+	@PostMapping("/delete/{id}")
+	public String delete(@PathVariable Long id)
 		{
 		tldrService.deleteTLDRById(id);
+		return "redirect:/my-tldrs";
 		}
 
 	@GetMapping("/my-tldrs")
@@ -109,10 +112,11 @@ public class TLDRController
 			{
 			// The user is authenticated
 			// find TLDRs
-			List<TLDR> tldrs = tldrService.findTLDRsByUserId(user.getId());
+			List<TLDR> tldrs = tldrService.findTLDRsByUserId(userService.findUserByEmail(user.getEmail()).getId());
 			model.addAttribute("authenticated", true);
 			model.addAttribute("tldrs", tldrs);
 			model.addAttribute("tldrList", Boolean.TRUE);
+			model.addAttribute("editable", Boolean.TRUE);
 			return "list";
 			}
 		else
@@ -121,15 +125,26 @@ public class TLDRController
 			}
 		}
 
+	@GetMapping("/admin")
+	public String admin(Model model)
+		{
+		model.addAttribute("editable", Boolean.TRUE);
+		model.addAttribute("tldrs", tldrService.findAll());
+		return "list";
+		}
+
 	private User currentUser()
 		{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = null;
 		if (authentication != null && authentication.isAuthenticated())
 			{
-			org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User)authentication.getPrincipal();
-			user = userService.findUserByEmail(principal.getUsername());
+			user = userService.findUserByEmail(authentication.getName());
+			return user;
 			}
-		return user;
+		else
+			{
+			return null;
+			}
 		}
 	}
