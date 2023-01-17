@@ -54,10 +54,10 @@ public class DBSeeder implements ApplicationRunner
 	private void seedUserTable()
 		{
 		user = new User();
-		user.setFirstName("admin");
-		user.setLastName("admin");
-		user.setPassword("admin");
-		user.setEmail("admin@tldr.com");
+		user.setFirstName(SeederSettings.ADMIN_FIRSTNAME.toString());
+		user.setLastName(SeederSettings.ADMIN_LASTNAME.toString());
+		user.setPassword(SeederSettings.ADMIN_PASSWORD.toString());
+		user.setEmail(SeederSettings.ADMIN_EMAIL.toString());
 
 		List<Role> roles = roleService.findAllRoles();
 		for(Role role:roles)
