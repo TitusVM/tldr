@@ -90,10 +90,8 @@ public class TLDRController
 	@PostMapping("/update/{id}")
 	public String update(@PathVariable Long id, @Valid @ModelAttribute("tldr") TLDR tldr)
 		{
-		TLDR updatedTldr = tldrService.findById(id);
-		updatedTldr.setName(tldr.getName());
-		updatedTldr.setContent(tldr.getContent());
-		tldrService.save(updatedTldr);
+		tldr.setId(id);
+		tldrService.updateTLDR(tldr);
 		return "redirect:/my-tldrs";
 		}
 

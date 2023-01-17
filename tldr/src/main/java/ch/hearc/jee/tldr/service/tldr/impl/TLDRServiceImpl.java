@@ -27,22 +27,23 @@ public class TLDRServiceImpl implements TLDRService
 		TLDR new_tldr = new TLDR();
 		new_tldr.setName(tldr.getName());
 		new_tldr.setContent(tldr.getContent());
-		new_tldr.setUser(userService.findUserByEmail(tldr.getUser().getEmail()));// TODO
+		new_tldr.setUser(userService.findUserByEmail(tldr.getUser().getEmail()));
 		this.tldrRepository.save(new_tldr);
 		}
 
 	@Override
 	public void updateTLDR(TLDR tldr)
 		{
-		TLDR udpatedTldr = this.tldrRepository.findById(tldr.getId()).get();
+		TLDR updatedTldr = this.tldrRepository.findById(tldr.getId()).get();
 
-		if (udpatedTldr != null)
+		if (updatedTldr != null)
 			{
-			udpatedTldr.setName(tldr.getName());
-			udpatedTldr.setContent(tldr.getContent());
-			}
+			updatedTldr.setId(tldr.getId());
+			updatedTldr.setName(tldr.getName());
+			updatedTldr.setContent(tldr.getContent());
 
-		this.tldrRepository.save(udpatedTldr);
+			this.tldrRepository.save(updatedTldr);
+			}
 		}
 
 	@Override
