@@ -1,7 +1,6 @@
 
 package ch.hearc.jee.tldr.service.user.impl;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,12 +38,13 @@ public class UserServiceImpl implements UserService
 		// encrypt the password using spring security
 		new_user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-		Role role = roleRepository.findByName("ROLE_USER");
+		Role role = roleRepository.findByName("USER");
 		if (role == null)
 			{
 			role = checkRoleExist();
 			}
-		new_user.setRoles(Arrays.asList(role));
+		user.getRoles().add(role);
+		new_user.setRoles(user.getRoles());
 		userRepository.save(new_user);
 		}
 
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService
 	private Role checkRoleExist()
 		{
 		Role role = new Role();
-		role.setName("ROLE_USER");
+		role.setName("USER");
 		return roleRepository.save(role);
 		}
 

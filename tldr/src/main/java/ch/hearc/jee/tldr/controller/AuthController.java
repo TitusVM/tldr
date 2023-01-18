@@ -3,6 +3,7 @@ package ch.hearc.jee.tldr.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -68,9 +69,11 @@ public class AuthController
 		}
 
 	// handler method to handle list of users
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/users")
 	public String users(Model model)
 		{
+		System.out.println("-----ADMIN SPACE-----");
 		List<User> users = userService.findAllUsers();
 		model.addAttribute("users", users);
 		model.addAttribute("userList", Boolean.TRUE);

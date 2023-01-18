@@ -29,30 +29,23 @@ public class SpringSecurity
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
 		{
-		http.csrf().disable().authorizeHttpRequests((authorize) -> //
-		authorize//
-				.requestMatchers("/register/**").permitAll() //
-				.requestMatchers("/create/**").permitAll()//
-				.requestMatchers("/edit/**").authenticated()//
-				.requestMatchers("/update/**").authenticated()//
-				.requestMatchers("/delete/**").authenticated()//
-				.requestMatchers("/").permitAll() //
-				.requestMatchers("/index").permitAll() //
-				.requestMatchers("/tldrs").permitAll() //
-				.requestMatchers("/users").hasRole("ADMIN")//
-				.requestMatchers("/admin").hasRole("ADMIN")//
-				.requestMatchers("/my-tldrs").permitAll()//
-		).formLogin( //
-				form -> form //
-						.loginPage("/login") //
-						.loginProcessingUrl("/login") //
-						.defaultSuccessUrl("/index", false) //
-						.permitAll() //
-		).logout( //
-				logout -> logout //
-						.logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //
-						.permitAll() //
-		).exceptionHandling().accessDeniedPage("/accessDenied");
+		http.authorizeRequests()//
+				.requestMatchers("/", "/register/**", "/login")//
+				.permitAll()//
+				.anyRequest()//
+				.authenticated()//
+				.and()//
+				.formLogin( //
+						form -> form //
+								.loginPage("/login") //
+								.loginProcessingUrl("/login") //
+								.defaultSuccessUrl("/index", false) //
+								.permitAll() //
+				).logout( //
+						logout -> logout //
+								.logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //
+								.permitAll() //
+				).exceptionHandling().accessDeniedPage("/accessDenied");
 		return http.build();
 		}
 

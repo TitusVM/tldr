@@ -1,21 +1,23 @@
 <div th:fragment="user-list" class="container">
-		<div class="row col-md-10">
-			<h2>List of Registered Users</h2>
-		</div>
-		<table class="table table-bordered table-hover">
-			<thead class="table-dark">
-				<tr>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Email</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="user : ${users}">
-					<td th:text="${user.firstName}"></td>
-					<td th:text="${user.lastName}"></td>
-					<td th:text="${user.email}"></td>
-				</tr>
-			</tbody>
-		</table>
+	<div class="row col-md-10">
+		<h2>List of Registered Users</h2>
 	</div>
+	<table class="table table-bordered table-hover">
+		<thead class="table-dark">
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th>Roles</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="user : ${users}">
+				<td th:text="${user.firstName}"></td>
+				<td th:text="${user.lastName}"></td>
+				<td th:text="${user.email}"></td>
+				<td th:text="${user.rolesToString()}"></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

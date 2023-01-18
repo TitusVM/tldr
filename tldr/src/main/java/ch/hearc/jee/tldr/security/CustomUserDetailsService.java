@@ -1,7 +1,6 @@
 
 package ch.hearc.jee.tldr.security;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import ch.hearc.jee.tldr.entity.Role;
 import ch.hearc.jee.tldr.entity.User;
 import ch.hearc.jee.tldr.service.user.UserService;
 
@@ -32,6 +32,13 @@ public class CustomUserDetailsService implements UserDetailsService
 
 	private List<SimpleGrantedAuthority> getAuthority(User user)
 		{
-		return Arrays.asList(new SimpleGrantedAuthority("ROLE_" + user.getRoles()));
+		System.out.println("-----------------GETTING USER AUTHORITIES-----------------");
+		return user.getRoles()//
+				.stream()//
+				.map(Role::getName)//
+				.peek(System.out::println)//
+				.map(s -> new SimpleGrantedAuthority("ROLE_" + s))//
+				.toList();
+
 		}
 	}

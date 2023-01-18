@@ -43,12 +43,8 @@ public class DBSeeder implements ApplicationRunner
 	private void seedRoleTable()
 		{
 		Role admin = new Role();
-		admin.setName("ROLE_ADMIN");
+		admin.setName("ADMIN");
 		roleService.saveRole(admin);
-
-		Role user = new Role();
-		user.setName("ROLE_USER");
-		roleService.saveRole(user);
 		}
 
 	private void seedUserTable()
@@ -63,8 +59,10 @@ public class DBSeeder implements ApplicationRunner
 		for(Role role:roles)
 			{
 			user.addRole(roleService.findById(role.getId()));
+			System.out.println("ROLE : " + role.getName());
 			}
 		userService.save(user);
+		System.out.println("Seeded admin user : " + userService.findUserByEmail(SeederSettings.ADMIN_EMAIL.toString()).toString());
 		}
 
 	private void seedTLDRTable()

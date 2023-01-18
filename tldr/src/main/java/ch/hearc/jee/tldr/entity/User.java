@@ -3,6 +3,7 @@ package ch.hearc.jee.tldr.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -72,4 +73,16 @@ public class User
 			}
 		this.roles.add(role);
 		}
+
+	@Override
+	public String toString()
+		{
+		return "User [id=" + this.id + ", firstName=" + this.firstName + ", lastName=" + this.lastName + ", email=" + this.email + ", password=" + this.password + ", roles=" + this.rolesToString() + "]";
+		}
+
+	public String rolesToString()
+		{
+		return this.roles.stream().map(Role::getName).collect(Collectors.joining(", "));
+		}
+
 	}
