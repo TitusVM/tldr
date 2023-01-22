@@ -32,4 +32,6 @@ public interface TLDRRepository extends PagingAndSortingRepository<TLDR, Long>
 
 	public void save(TLDR tldr);
 
+	public void deleteAll();
+
 	}

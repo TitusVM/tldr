@@ -24,6 +24,12 @@ import lombok.Setter;
 public class TLDR
 	{
 
+	public TLDR(String name, String content)
+		{
+		this.name = name;
+		this.content = content;
+		}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
