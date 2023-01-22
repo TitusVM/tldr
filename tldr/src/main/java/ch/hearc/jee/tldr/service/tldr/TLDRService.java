@@ -3,6 +3,9 @@ package ch.hearc.jee.tldr.service.tldr;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import ch.hearc.jee.tldr.entity.TLDR;
 
 public interface TLDRService
@@ -28,4 +31,5 @@ public interface TLDRService
 
 	public void save(TLDR tldr);
 
+	public Page<TLDR> findPaginated(Pageable pageable);
 	}

@@ -1,9 +1,9 @@
 
 package ch.hearc.jee.tldr.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ch.hearc.jee.tldr.entity.TLDR;
 import ch.hearc.jee.tldr.entity.User;
@@ -32,10 +33,11 @@ public class TLDRController
 	private UserService userService;
 
 	@GetMapping("/tldrs")
-	public String users(Model model)
+	public String tldrs(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size)
 		{
-		List<TLDR> tldrs = tldrService.findAllTLDRs();
+		Page<TLDR> tldrs = tldrService.findPaginated(PageRequest.of(page, size));
 		model.addAttribute("tldrs", tldrs);
+		model.addAttribute("tldrList", Boolean.TRUE);
 		return "list";
 		}
 
@@ -103,14 +105,14 @@ public class TLDRController
 		}
 
 	@GetMapping("/my-tldrs")
-	public String myTldrs(Model model)
+	public String myTldrs(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size)
 		{
 		User user = currentUser();
 		if (user != null)
 			{
 			// The user is authenticated
 			// find TLDRs
-			List<TLDR> tldrs = tldrService.findTLDRsByUserId(userService.findUserByEmail(user.getEmail()).getId());
+			Page<TLDR> tldrs = tldrService.findPaginated(PageRequest.of(page, size));
 			model.addAttribute("authenticated", true);
 			model.addAttribute("tldrs", tldrs);
 			model.addAttribute("tldrList", Boolean.TRUE);

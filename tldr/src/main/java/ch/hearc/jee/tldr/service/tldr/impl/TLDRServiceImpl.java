@@ -4,6 +4,8 @@ package ch.hearc.jee.tldr.service.tldr.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import ch.hearc.jee.tldr.entity.TLDR;
@@ -34,7 +36,7 @@ public class TLDRServiceImpl implements TLDRService
 	@Override
 	public void updateTLDR(TLDR tldr)
 		{
-		TLDR updatedTldr = this.tldrRepository.findById(tldr.getId()).get();
+		TLDR updatedTldr = this.tldrRepository.findById(tldr.getId());
 
 		if (updatedTldr != null)
 			{
@@ -88,12 +90,18 @@ public class TLDRServiceImpl implements TLDRService
 	@Override
 	public TLDR findById(Long id)
 		{
-		return this.tldrRepository.findById(id).get();
+		return this.tldrRepository.findById(id);
 		}
 
 	@Override
 	public void save(TLDR tldr)
 		{
 		this.saveTLDR(tldr);
+		}
+
+	@Override
+	public Page<TLDR> findPaginated(Pageable pageable)
+		{
+		return tldrRepository.findAll(pageable);
 		}
 	}

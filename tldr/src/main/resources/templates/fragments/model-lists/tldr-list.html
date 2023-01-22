@@ -26,4 +26,9 @@
 			</tr>
 		</tbody>
 	</table>
+	<div class="pagination">
+		<a th:href="@{'/tldrs?page=' + ${tldrs.getNumber() - 1}}" th:if="${tldrs.getNumber()} > 0">Previous</a>
+		<a th:href="@{'/tldrs?page=' + ${tldrs.getNumber() + 1}}"
+			th:if="${tldrs.getNumber() < tldrs.getTotalPages() - 1}">Next</a>
+	</div>
 </div>

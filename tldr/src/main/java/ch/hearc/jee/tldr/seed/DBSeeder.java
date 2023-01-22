@@ -67,19 +67,13 @@ public class DBSeeder implements ApplicationRunner
 
 	private void seedTLDRTable()
 		{
-		TLDR tldr1 = new TLDR();
-		tldr1.setName("Summary of Article 1");
-		tldr1.setContent("In this article, the author discusses the impact of technology on society and how it is shaping the future." //
-				+ " They argue that while technology has brought many benefits, it also poses certain challenges that need to be addressed.");
-		tldr1.setUser(userService.findUserByEmail(this.user.getEmail()));
-
-		TLDR tldr2 = new TLDR();
-		tldr2.setName("Summary of Article 2");
-		tldr2.setContent("The article explores the current state of renewable energy and the potential for it to become the primary source of power in the future."//
-				+ " The author argues that with the right policies in place, renewable energy can play a significant role in addressing the global climate crisis.");
-		tldr2.setUser(userService.findUserByEmail(this.user.getEmail()));
-
-		tldrService.save(tldr1);
-		tldrService.save(tldr2);
+		for(SeederTLDRData tldrData:SeederTLDRData.values())
+			{
+			TLDR tldr = new TLDR();
+			tldr.setName(tldrData.getName());
+			tldr.setContent(tldrData.getContent());
+			tldr.setUser(userService.findUserByEmail(SeederSettings.ADMIN_EMAIL.toString()));
+			tldrService.save(tldr);
+			}
 		}
 	}
