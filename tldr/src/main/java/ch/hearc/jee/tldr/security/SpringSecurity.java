@@ -30,7 +30,7 @@ public class SpringSecurity
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
 		{
 		http.authorizeRequests()//
-				.requestMatchers("/", "/register/**", "/login")//
+				.requestMatchers("/", "/register/**", "/login", "/tldrs", "/index")//
 				.permitAll()//
 				.anyRequest()//
 				.authenticated()//

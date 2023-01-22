@@ -105,14 +105,14 @@ public class TLDRController
 		}
 
 	@GetMapping("/my-tldrs")
-	public String myTldrs(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size)
+	public String myTldrs(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size)
 		{
 		User user = currentUser();
 		if (user != null)
 			{
 			// The user is authenticated
 			// find TLDRs
-			Page<TLDR> tldrs = tldrService.findPaginated(PageRequest.of(page, size));
+			Page<TLDR> tldrs = tldrService.findByUserId(user.getId(), PageRequest.of(page, size));
 			model.addAttribute("authenticated", true);
 			model.addAttribute("tldrs", tldrs);
 			model.addAttribute("tldrList", Boolean.TRUE);

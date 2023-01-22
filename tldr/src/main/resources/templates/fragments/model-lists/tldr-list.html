@@ -26,9 +26,15 @@
 			</tr>
 		</tbody>
 	</table>
-	<div class="pagination">
+	<div th:if=${editable} class="pagination">
+		<a th:href="@{'/my-tldrs?page=' + ${tldrs.getNumber() - 1}}" th:if="${tldrs.getNumber()} > 0">Previous</a>
+		<a th:href="@{'/my-tldrs?page=' + ${tldrs.getNumber() + 1}}"
+			th:if="${tldrs.getNumber() < tldrs.getTotalPages() - 1}">Next</a>
+	</div>
+	<div th:unless="${editable}" class="pagination">
 		<a th:href="@{'/tldrs?page=' + ${tldrs.getNumber() - 1}}" th:if="${tldrs.getNumber()} > 0">Previous</a>
 		<a th:href="@{'/tldrs?page=' + ${tldrs.getNumber() + 1}}"
 			th:if="${tldrs.getNumber() < tldrs.getTotalPages() - 1}">Next</a>
 	</div>
+
 </div>

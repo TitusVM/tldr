@@ -61,9 +61,8 @@ public class User
 							referencedColumnName = "id") })
 	private List<Role> roles = new ArrayList<>();
 
-	@OneToMany
-	@JoinColumn(name = "tldr_id")
-	private List<TLDR> tldrs;
+	@OneToMany(mappedBy = "user")
+	private List<TLDR> tldrs = new ArrayList<TLDR>();
 
 	public void addRole(Role role)
 		{

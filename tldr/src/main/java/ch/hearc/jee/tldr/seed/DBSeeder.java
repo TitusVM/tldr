@@ -73,7 +73,7 @@ public class DBSeeder implements ApplicationRunner
 			tldr.setName(tldrData.getName());
 			tldr.setContent(tldrData.getContent());
 			tldr.setUser(userService.findUserByEmail(SeederSettings.ADMIN_EMAIL.toString()));
-			tldrService.save(tldr);
+			tldrService.saveSeeds(tldr);
 			}
 		}
 	}

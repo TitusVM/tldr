@@ -23,8 +23,6 @@ public interface TLDRService
 
 	public List<TLDR> findAllTLDRs();
 
-	public List<TLDR> findTLDRsByUserId(Long id);
-
 	public List<TLDR> findAll();
 
 	public TLDR findById(Long id);
@@ -32,4 +30,9 @@ public interface TLDRService
 	public void save(TLDR tldr);
 
 	public Page<TLDR> findPaginated(Pageable pageable);
+
+	public Page<TLDR> findByUserId(Long id, Pageable pageable);
+
+	public void saveSeeds(TLDR tldr);
+
 	}

@@ -6,10 +6,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import ch.hearc.jee.tldr.entity.TLDR;
+import ch.hearc.jee.tldr.entity.User;
 import ch.hearc.jee.tldr.repository.TLDRRepository;
+import ch.hearc.jee.tldr.seed.SeederSettings;
 import ch.hearc.jee.tldr.service.tldr.TLDRService;
 import ch.hearc.jee.tldr.service.user.UserService;
 
@@ -29,7 +34,7 @@ public class TLDRServiceImpl implements TLDRService
 		TLDR new_tldr = new TLDR();
 		new_tldr.setName(tldr.getName());
 		new_tldr.setContent(tldr.getContent());
-		new_tldr.setUser(userService.findUserByEmail(tldr.getUser().getEmail()));
+		new_tldr.setUser(userService.findById(getCurrentUser().getId()));
 		this.tldrRepository.save(new_tldr);
 		}
 
@@ -74,13 +79,6 @@ public class TLDRServiceImpl implements TLDRService
 		}
 
 	@Override
-	public List<TLDR> findTLDRsByUserId(Long id)
-		{
-		List<TLDR> list = this.tldrRepository.findByUserId(id);
-		return list;
-		}
-
-	@Override
 	public List<TLDR> findAll()
 		{
 		List<TLDR> list = this.tldrRepository.findAll();
@@ -103,5 +101,26 @@ public class TLDRServiceImpl implements TLDRService
 	public Page<TLDR> findPaginated(Pageable pageable)
 		{
 		return tldrRepository.findAll(pageable);
+		}
+
+	@Override
+	public Page<TLDR> findByUserId(Long id, Pageable pageable)
+		{
+		return tldrRepository.findAllByUserOrderByIdDesc(userService.findById(id), pageable);
+		}
+
+	@Override
+	public void saveSeeds(TLDR tldr)
+		{
+		tldr.setUser(userService.findUserByEmail(SeederSettings.ADMIN_EMAIL.toString()));
+		tldrRepository.save(tldr);
+		}
+
+	private User getCurrentUser()
+		{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null && auth.isAuthenticated())
+			{ return userService.findUserByEmail(((UserDetails)(auth.getPrincipal())).getUsername()); }
+		return null;
 		}
 	}

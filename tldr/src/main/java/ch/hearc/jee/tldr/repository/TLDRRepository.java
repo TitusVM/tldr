@@ -9,6 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import ch.hearc.jee.tldr.entity.TLDR;
+import ch.hearc.jee.tldr.entity.User;
 
 @Repository
 public interface TLDRRepository extends PagingAndSortingRepository<TLDR, Long>
@@ -16,9 +17,12 @@ public interface TLDRRepository extends PagingAndSortingRepository<TLDR, Long>
 
 	public TLDR findByName(String name);
 
-	public List<TLDR> findByUserId(Long id);
+	public List<TLDR> findByUser(User user);
 
+	@Override
 	public Page<TLDR> findAll(Pageable pageable);
+
+	public Page<TLDR> findAllByUserOrderByIdDesc(User user, Pageable pageable);
 
 	public TLDR findById(Long id);
 
