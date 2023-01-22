@@ -2,9 +2,10 @@
 
 ## Lancement de l'application
 
-Pour faire marcher l'application, il suffit d'ouvrir **le dossier du répertoire git** avec l'application [SpringToolSuite4](https://spring.io/tools).
+Pour faire marcher l'application, il suffit d'importer le répertoire git avec l'application [SpringToolSuite4](https://spring.io/tools).
 
-Une fois le projet ouvert dans Eclipse avec les packages Spring, il suffit de soit lancer avec la commande `Run As -> Springboot App`, ou alors avec la commande `Maven build... -> Goals: install clean` si on n'a pas encore les packages installés.
+
+Une fois le projet importé dans Eclipse avec les packages Spring, il suffit de soit lancer avec la commande `Run As -> Springboot App`, ou alors avec la commande `Maven build... -> Goals: install clean` si on n'a pas encore les packages installés.
 
 ## L'application
 
