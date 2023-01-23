@@ -34,4 +34,6 @@ public interface TLDRRepository extends PagingAndSortingRepository<TLDR, Long>
 
 	public void deleteAll();
 
+	public void delete(TLDR tldr);
+
 	}
