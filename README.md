@@ -1,13 +1,19 @@
 # TLDR
 
-## Lancement de l'application
+## Utilisation
 
-Pour faire marcher l'application, il suffit d'importer le répertoire git avec l'application [SpringToolSuite4](https://spring.io/tools).
+Pour utiliser l'application, il faut se munir de l'application [SpringToolSuite4](https://spring.io/tools). Pour les meilleurs résultats il est important d'importer le git dans le workspace. Pour cela, il suffit de suivre pas à pas les étapes suivantes:
 
+* Ouvrir SpringToolSuite4
+* `File` -> `Import` -> `Git` -> `Projects from Git (with smart import)` -> `Clone URI`
+* Rentrer l'URI du git: `git@gitlab-etu.ing.he-arc.ch:isc/2022-23/niveau-3/3281.1-projet-p3-sa-il/201/p3evernym.git`
+* Choisir la branche `main`
+* Poursuivre l'importation
+
+
+## Connexion
 
 Une fois le projet importé dans Eclipse avec les packages Spring, il suffit de soit lancer avec la commande `Run As -> Springboot App`, ou alors avec la commande `Maven build... -> Goals: install clean` si on n'a pas encore les packages installés.
-
-## L'application
 
 On peut se connecter avec un compte administrateur avec les informations suivantes:
 
